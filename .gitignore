@@ -12,8 +12,7 @@ node_modules
 components
 docs/doctrees/environment.pickle
 tags
-stamp-npm
-stamp-bower
+test-reports
 
 # OSX
 .DS_Store

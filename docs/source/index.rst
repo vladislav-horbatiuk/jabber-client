@@ -43,7 +43,7 @@ bottom of your page (after the closing *</body>* element).
         converse.initialize({
             auto_list_rooms: false,
             auto_subscribe: false,
-            bosh_service_url: 'https://bind.conversejs.org', // Please use this connection manager only for testing purposes
+            bosh_service_url: 'https://bind.opkode.im', // Please use this connection manager only for testing purposes
             hide_muc_server: false,
             i18n: locales.en, // Refer to ./locale/locales.js to see which locales are supported
             prebind: false,
@@ -51,6 +51,13 @@ bottom of your page (after the closing *</body>* element).
             xhr_user_search: false
         });
     });
+
+
+Finally, Converse.js requires a special snippet of HTML markup to be included in your page:
+
+::
+
+    <div id="conversejs"></div>
 
 The `index.html <https://github.com/jcbrand/converse.js/blob/master/index.html>`_ file inside the
 Converse.js repository serves as a nice usable example of this.
@@ -63,7 +70,7 @@ You'll most likely want to implement some kind of single-signon solution for
 your website, where users authenticate once in your website and then stay
 logged into their XMPP session upon page reload.
 
-For more info on this, read: `Prebinding and Single Session Support`_.
+For more info on this, read: `Pre-binding and Single Session Support`_.
 
 You might also want to have more fine-grained control of what gets included in
 the minified Javascript file. Read `Configuration`_ and `Minification`_ for more info on how to do
@@ -131,7 +138,7 @@ This is the job of a connection manager. A connection manager can be either a
 standalone application or part of an XMPP server. `ejabberd`_ for example,
 includes a connection manager (but you have to enable it).
 
-The demo on the `Converse.js homepage`_ uses a a connection manager located at https://bind.conversejs.org.
+The demo on the `Converse.js homepage`_ uses a a connection manager located at https://bind.opkode.im.
 This connection manager is for testing purposes only, please don't use it in
 production.
 
@@ -273,7 +280,7 @@ These values are then passed to converse.js's ``initialize`` method.
 Example code for server-side prebinding
 ---------------------------------------
 
-* PHP:
+* PHP: 
     See `xmpp-prebind-php <https://github.com/candy-chat/xmpp-prebind-php>`_ by
     Michael Weibel and the folks from Candy chat.
 
@@ -311,7 +318,7 @@ Converse.js/Strophe.js and Facebook's XMPP server. That is because Facebook's
 XMPP server doesn't support BOSH natively.
 
 The BOSH connection manager that I make available for
-testing purposes (at https://bind.conversejs.org) uses `Punjab <https://github.com/twonds/punjab>`_,
+testing purposes (at https://bind.opkode.im) uses `Punjab <https://github.com/twonds/punjab>`_,
 although there are quite a few other options available as well.
 
 When you configure Converse.js, via its ``initialize`` method, you must specify the
@@ -385,8 +392,8 @@ follow the instructions below to create this folder and fetch Converse's
 3rd-party dependencies.
 
 
-Install the development and front-end dependencies
-==================================================
+Install Node.js and development dependencies
+============================================
 
 We use development tools (`Grunt <http://gruntjs.com>`_ and `Bower <http://bower.io>`_)
 which depend on Node.js and npm (the Node package manager).
@@ -394,38 +401,41 @@ which depend on Node.js and npm (the Node package manager).
 If you don't have Node.js installed, you can download and install the latest
 version `here <https://nodejs.org/download>`_.
 
-Also make sure you have ``git`` installed. `Details <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_.
-
-Once you have *Node.js* and *git* installed, run the following command inside the Converse.js
+Once you have Node.js installed, run the following command inside the Converse.js
 directory:
 
 ::
 
-    make dev
+    npm install
 
-This will first install the Node.js development tools (like Grunt and Bower)
-and then use Bower to install all of Converse.js's front-end dependencies.
+This will install all the development dependencies for Converse.js. If you are
+curious to know what these are, take a look at whats under the *devDependencies* key in
+`package.json <https://github.com/jcbrand/converse.js/blob/master/package.json>`.
 
-The front-end dependencies are those javascript files on which
-Converse.js directly depends and which will therefore be loaded in the browser.
+Install 3rd party dependencies
+==============================
 
-If you are curious to know what the different dependencies are:
+After running ``npm install``, you will now have Grunt and Bower installed.
 
-* Development dependencies:
-    Take a look at whats under the *devDependencies* key in
-    `package.json <https://github.com/jcbrand/converse.js/blob/master/package.json>`_.
+We use Bower to manage Converse's front-end dependencies (e.g. Javascript that
+should get loaded in the browser).
 
-* Front-end dependencies:
-    See *dependencies* in
-    `bower.json <https://github.com/jcbrand/converse.js/blob/master/bower.json>`_.
+To fetch these dependencies, run:
 
-.. Note:
-    After running ```make dev```, you should now have a new directory *components*,
-    which contains all the front-end dependencies of Converse.js.
-    If this directory does NOT exist, something must have gone wrong.
-    Double-check the output of ```make dev``` to see if there are any errors
-    listed.
+::
 
+    grunt fetch
+
+If you don't have grunt installed globally, you need to specify the relative
+path:
+
+::
+
+    ./node_modules/.bin/grunt fetch
+
+This will call Bower in the background to fetch all the front-end
+dependencies (like backbone.js, strophe.js etc.) and then put them in the
+*components* folder.
 
 With AMD and require.js (recommended)
 =====================================
@@ -568,7 +578,7 @@ To do this for ALL languages, run:
 
 ::
 
-    make po
+    make merge
 
 The resulting PO file is then what gets translated.
 
@@ -640,7 +650,7 @@ Troubleshooting
 Conflicts with other Javascript libraries
 =========================================
 
-Problem:
+Problem: 
 ---------
 
 You are using other Javascript libraries (like JQuery plugins), and
@@ -661,7 +671,7 @@ rules apply if its something else.
 The bundled and minified default build of converse.js, ``converse.min.js``
 includes within it all of converse.js's dependencies, which include for example *jQuery*.
 
-If you are having conflicts where attributes or methods aren't available
+If you are having conflicts where attributes or methods aren't available 
 on the jQuery object, you are probably loading ``converse.min.js`` (which
 includes jQuery) as well as your own jQuery version separately.
 
@@ -714,7 +724,7 @@ Concerning events, the following methods are available:
 Event Methods
 =============
 
-* **on(eventName, callback)**:
+* **on(eventName, callback)**: 
 
     Calling the ``on`` method allows you to subscribe to an event.
     Every time the event fires, the callback method specified by ``callback`` will be
@@ -738,7 +748,7 @@ Event Methods
 
     * ``eventName`` is the event name as a string.
     * ``callback`` is the callback method to be called when the event is emitted.
-
+    
     For example::
 
         converse.once('onMessage', function (messageXML) { ... });
@@ -758,39 +768,85 @@ Event Types
 
 Here are the different events that are emitted:
 
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| Event Type                       | When is it triggered?                                                                             | Example                                                                                 |
-+==================================+===================================================================================================+=========================================================================================+
-| **onInitialized**                | Once converse.js has been initialized.                                                            | ``converse.on('onInitialized', function () { ... });``                                  |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onReady**                      | After connection has been established and converse.js has got all its ducks in a row.             | ``converse.on('onReady', function () { ... });``                                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onReconnect**                  | After the connection has dropped. Converse.js will attempt to reconnect when not in prebind mode. | ``converse.on('onReconnect', function () { ... });``                                    |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onMessage**                    | When a message is received.                                                                       | ``converse.on('onMessage', function (messageXML) { ... });``                            |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onMessageSend**                | When a message will be sent out.                                                                  | ``converse.on('onMessageSend', function (messageText) { ... });``                       |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onRoster**                     | When the roster is updated.                                                                       | ``converse.on('onRoster', function (items) { ... });``                                  |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onRosterViewUpdated**          | Whenever the roster view (i.e. the rendered HTML) has changed.                                    | ``converse.on('onRosterViewUpdated', function (items) { ... });``                       |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onChatBoxOpened**              | When a chat box has been opened.                                                                  | ``converse.on('onChatBoxOpened', function (chatbox) { ... });``                         |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onChatBoxClosed**              | When a chat box has been closed.                                                                  | ``converse.on('onChatBoxClosed', function (chatbox) { ... });``                         |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onChatBoxFocused**             | When the focus has been moved to a chat box.                                                      | ``converse.on('onChatBoxFocused', function (chatbox) { ... });``                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onChatBoxToggled**             | When a chat box has been minimized or maximized.                                                  | ``converse.on('onChatBoxToggled', function (chatbox) { ... });``                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onStatusChanged**              | When own chat status has changed.                                                                 | ``converse.on('onStatusChanged', function (status) { ... });``                          |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onStatusMessageChanged**       | When own custom status message has changed.                                                       | ``converse.on('onStatusMessageChanged', function (message) { ... });``                  |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onBuddyStatusChanged**         | When a chat buddy's chat status has changed.                                                      | ``converse.on('onBuddyStatusChanged', function (buddy, status) { ... });``              |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
-| **onBuddyStatusMessageChanged**  | When a chat buddy's custom status message has changed.                                            | ``converse.on('onBuddyStatusMessageChanged', function (buddy, messageText) { ... });``  |
-+----------------------------------+---------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
+* **onInitialized**
+
+    ``converse.on('onInitialized', function () { ... });``
+
+    Triggered once converse.js has been initialized.
+
+* **onReady**
+
+    Triggered after a connection has been established and converse.js has
+    got all its ducks in a row.
+
+    ``converse.on('onReady', function () { ... });``
+
+* **onMessage**
+
+    ``converse.on('onMessage', function (messageXML) { ... });``
+
+    Triggered when a message is received.
+
+* **onMessageSend**
+
+    ``converse.on('onMessageSend', function (messageText) { ... });``
+
+    Triggered when a message will be sent out.
+
+* **onRoster**
+
+    ``converse.on('onRoster', function (items) { ... });``
+
+    Triggered when the roster is updated.
+
+* **onRosterViewUpdated**
+
+    ``converse.on('onRosterViewUpdated', function (items) { ... });``
+
+    Triggered whenever the roster view (i.e. the rendered HTML) has changed.
+
+* **onChatBoxFocused**
+
+    ``converse.on('onChatBoxFocused', function (chatbox) { ... });``
+
+    Triggered when the focus has been moved to a chat box.
+
+* **onChatBoxOpened**
+
+    ``converse.on('onChatBoxOpened', function (chatbox) { ... });``
+
+    Triggered when a chat box has been opened.
+
+* **onChatBoxClosed**
+
+    ``converse.on('onChatBoxClosed', function (chatbox) { ... });``
+
+    Triggered when a chat box has been closed.
+
+* **onStatusChanged**
+
+    ``converse.on('onStatusChanged', function (status) { ... });``
+
+    Triggered when own chat status has changed.
+
+* **onStatusMessageChanged**
+
+    ``converse.on('onStatusMessageChanged', function (message) { ... });``
+
+    Triggered when own custom status message has changed.
+
+* **onBuddyStatusChanged**
+
+    ``converse.on('onBuddyStatusChanged', function (buddy, status) { ... });``
+
+    Triggered when a chat buddy's chat status has changed.
+
+* **onBuddyStatusMessageChanged**
+
+    ``converse.on('onBuddyStatusMessageChanged', function (buddy, messageText) { ... });``
+
+    Triggered when a chat buddy's custom status message has changed.
+
 
 =============
 Configuration
@@ -819,7 +875,7 @@ Configuration variables
 allow_contact_requests
 ----------------------
 
-Default:  ``true``
+Default = ``true``
 
 Allow users to add one another as contacts. If this is set to false, the
 **Add a contact** widget, **Contact Requests** and **Pending Contacts** roster
@@ -829,29 +885,22 @@ ignored.
 allow_muc
 ---------
 
-Default:  ``true``
+Default = ``true``
 
 Allow multi-user chat (muc) in chatrooms. Setting this to ``false`` will remove
 the ``Chatrooms`` tab from the control box.
 
-allow_muc
----------
-
-Default:  ``true``
-
-Allow Off-the-record encryption of single-user chat messages.
-
 animate
 -------
 
-Default:  ``true``
+Default = ``true``
 
 Show animations, for example when opening and closing chat boxes.
 
 auto_list_rooms
 ---------------
 
-Default:  ``false``
+Default = ``false``
 
 If true, and the XMPP server on which the current user is logged in supports
 multi-user chat, then a list of rooms on that server will be fetched.
@@ -865,7 +914,7 @@ option will create lots of extra connection traffic.
 auto_reconnect
 --------------
 
-Default:  ``true``
+Default = ``true``
 
 Automatically reconnect to the XMPP server if the connection drops
 unexpectedly.
@@ -873,7 +922,7 @@ unexpectedly.
 auto_subscribe
 --------------
 
-Default:  ``false``
+Default = ``false``
 
 If true, the user will automatically subscribe back to any contact requests.
 
@@ -888,7 +937,7 @@ See `here <http://metajack.im/2008/09/08/which-bosh-server-do-you-need>`_ for mo
 cache_otr_key
 -------------
 
-Default:  ``false``
+Default = ``false``
 
 Let the `OTR (Off-the-record encryption) <https://otr.cypherpunks.ca>`_ private
 key be cached in your browser's session storage.
@@ -902,7 +951,7 @@ for each page load. While more inconvenient, this is a much more secure option.
 This setting can only be used together with ``allow_otr = true``.
 
 
-.. Note ::
+.. Note :: 
     A browser window's session storage is accessible by all javascript that
     is served from the same domain. So if there is malicious javascript served by
     the same server (or somehow injected via an attacker), then they will be able
@@ -912,41 +961,19 @@ This setting can only be used together with ``allow_otr = true``.
 debug
 -----
 
-Default:  ``false``
+Default = ``false``
 
 If set to true, debugging output will be logged to the browser console.
-
-enable_message_carbons
-----------------------
-
-Default:  ``false``
-
-Support for `XEP-0280: Message Carbons <https://xmpp.org/extensions/xep-0280.html>`_
 
 expose_rid_and_sid
 ------------------
 
-Default:  ``false``
-
 Allow the prebind tokens, RID (request ID) and SID (session ID), to be exposed
 globally via the API. This allows other scripts served on the same page to use
-these values.
+these values. 
 
 *Beware*: a malicious script could use these tokens to assume your identity
 and inject fake chat messages.
-
-forward_messages
-----------------
-
-Default:  ``false``
-
-If set to ``true``, sent messages will also be forwarded to other connected
-XMPP resources (e.g. chat clients) of the same user.
-
-This is useful for example if converse.js is running in multiple tabs of the
-browser and you want sent messages to appear in all of them.
-
-See also `XEP 0297: Stanza Forwarding <http://www.xmpp.org/extensions/xep-0297.html>`_
 
 fullname
 --------
@@ -957,7 +984,7 @@ logged in user, otherwise the user's vCard will be fetched.
 hide_muc_server
 ---------------
 
-Default:  ``false``
+Default = ``false``
 
 Hide the ``server`` input field of the form inside the ``Room`` panel of the
 controlbox. Useful if you want to restrict users to a specific XMPP server of
@@ -972,7 +999,7 @@ Specify the locale/language. The language must be in the ``locales`` object. Ref
 prebind
 --------
 
-Default:  ``false``
+Default = ``false``
 
 Use this option when you want to attach to an existing XMPP connection that was
 already authenticated (usually on the backend before page load).
@@ -992,7 +1019,7 @@ Additionally, you have to specify ``bosh_service_url``.
 show_controlbox_by_default
 --------------------------
 
-Default:  ``false``
+Default = ``false``
 
 The "controlbox" refers to the special chatbox containing your contacts roster,
 status widget, chatrooms and other controls.
@@ -1003,10 +1030,32 @@ the page with class *toggle-online-users*.
 If this options is set to true, the controlbox will by default be shown upon
 page load.
 
+
+show_call_button
+----------------
+
+Default = ``false``
+
+Enable to display a call button on the chatbox toolbar.
+
+When the call button is pressed, it will emit an event that can be used by a third-party library to initiate a call.
+
+::
+
+    converse.on('onCallButtonClicked', function(event, data) {
+        console.log('Call button was clicked.');
+        console.log('Strophe connection is', data.connection);
+        console.log('Bare buddy JID is', data.model.get('jid'));
+
+        // ... Third-party library code ...
+    });
+
+
+
 show_only_online_users
 ----------------------
 
-Default:  ``false``
+Default = ``false``
 
 If set to ``true``, only online users will be shown in the contacts roster.
 Users with any other status (e.g. away, busy etc.) will not be shown.
@@ -1014,7 +1063,7 @@ Users with any other status (e.g. away, busy etc.) will not be shown.
 use_otr_by_default
 ------------------
 
-Default:  ``false``
+Default = ``false``
 
 If set to ``true``, Converse.js will automatically try to initiate an OTR (off-the-record)
 encrypted chat session every time you open a chat box.
@@ -1022,48 +1071,16 @@ encrypted chat session every time you open a chat box.
 use_vcards
 ----------
 
-Default:  ``true``
+Default = ``true``
 
 Determines whether the XMPP server will be queried for roster contacts' VCards
 or not. VCards contain extra personal information such as your fullname and
 avatar image.
 
-visible_toolbar_buttons
------------------------
-
-Default:
-
-::
-
-    {
-        'emoticons': true,
-        'call': false,
-        'clear': true
-    }
-
-Allows you to show or hide buttons on the chat boxes' toolbars.
-
-* *emoticons*: 
-    Enables rendering of emoticons and provides a toolbar button for choosing them.
-* *call*: 
-    Provides a button with a picture of a telephone on it.
-    When the call button is pressed, it will emit an event that can be used by a third-party library to initiate a call.
-
-    ::
-
-        converse.on('onCallButtonClicked', function(event, data) {
-            console.log('Strophe connection is', data.connection);
-            console.log('Bare buddy JID is', data.model.get('jid'));
-            // ... Third-party library code ...
-        });
-* *clear*: 
-    Provides a button for clearing messages from a chat box.
-
-
 xhr_custom_status
 -----------------
 
-Default:  ``false``
+Default = ``false``
 
 .. Note ::
     XHR stands for XMLHTTPRequest, and is meant here in the AJAX sense (Asynchronous Javascript and XML).
@@ -1077,7 +1094,7 @@ xhr_custom_status_url
 .. Note ::
     XHR stands for XMLHTTPRequest, and is meant here in the AJAX sense (Asynchronous Javascript and XML).
 
-Default:  Empty string
+Default = Empty string
 
 Used only in conjunction with ``xhr_custom_status``.
 
@@ -1089,7 +1106,7 @@ The message itself is sent in the request under the key ``msg``.
 xhr_user_search
 ---------------
 
-Default:  ``false``
+Default = ``false``
 
 .. Note ::
     XHR stands for XMLHTTPRequest, and is meant here in the AJAX sense (Asynchronous Javascript and XML).
@@ -1112,16 +1129,12 @@ xhr_user_search_url
 .. Note ::
     XHR stands for XMLHTTPRequest, and is meant here in the AJAX sense (Asynchronous Javascript and XML).
 
-Default:  Empty string
+Default = Empty string
 
 Used only in conjunction with ``xhr_user_search``.
 
 This is the URL to which an AJAX GET request will be made to fetch user data from your remote server.
 The query string will be included in the request with ``q`` as its key.
-
-The calendar can be configured through a `data-pat-calendar` attribute.
-The available options are:
-
 
 .. _`read more about require.js's optimizer here`: http://requirejs.org/docs/optimization.html
 .. _`HTTP`: https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol

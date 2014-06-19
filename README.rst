@@ -5,8 +5,7 @@ converse.js
 .. figure:: https://api.travis-ci.org/jcbrand/converse.js.png?branch=master
    :alt: Build Status
 
-`Converse.js <https://conversejs.org>`_ is a web based `XMPP/Jabber <http://xmpp.org>`_
-instant messaging client.
+Converse.js_ is a web based `XMPP/Jabber`_ instant messaging client.
 
 It enables you to add chat functionality to your website, independent of any
 specific backend. You will however need an XMPP server to connect to, either
@@ -52,51 +51,72 @@ Integration into other frameworks
     `roundcube-converse.js-xmpp-plugin <https://github.com/priyadi/roundcube-converse.js-xmpp-plugin>`_ is a plugin for Roundcube Webmail.
 * `Wordpress <http://wordpress.org>`_:
     `ConverseJS <http://wordpress.org/plugins/conversejs>`_
-* `Patternslib <http://patternslib.com>`_:
-    `patterns.converse`_: `patterns.converse <https://github.com/jcbrand/patterns.converse>`_ provides a Patternslib pattern for Converse.js
 
 ----
 Demo
 ----
 
-A live demo is available at `<https://conversejs.org>`_
+A live demo is available at `conversejs.org`_
 
 -----
 Tests
 -----
 
-We use behavior-driven tests written with `jasmine.js <http://pivotal.github.io/jasmine>`_.
-
-Open `tests.html <https://github.com/jcbrand/converse.js/blob/master/tests.html>`_
-in your browser, and the tests will run automatically.
+We use behavior-driven tests written with jasmine.js_. They can run in your
+browser or in the command line via phantom.js_.
 
 -------------
 Documentation
 -------------
 
-The developer/integrator documentation can be found at `<https://conversejs.org/docs/html>`_.
+The developer/integrator documentation can be found at `<http://conversejs.org/docs/html>`_.
+
+
+------------
+Dependencies
+------------
+
+It depends on quite a few third party libraries, including:
+
+* jquery_
+* strophe.js_
+* backbone.js_ 
 
 -------
 Licence
 -------
 
-``Converse.js`` is released under the `Mozilla Public License (MPL) <https://www.mozilla.org/MPL/2.0/index.txt>`_.
+``Converse.js`` is released under both the MIT_ and GPL_ licenses.
 
 -------
 Support
 -------
 
 For support queries and discussions, please join the mailing list: conversejs@librelist.com
-
-Also take a look at the `mailing list archives <http://librelist.com/browser/conversejs>`_.
-
 Issues can be logged on the `Github issue tracker <https://github.com/jcbrand/converse.js/issues>`_.
 
-----------------------------------
-Donations and tips are appreciated
-----------------------------------
+---------------------------------
+Donations or tips are appreciated
+---------------------------------
 
 * Bitcoin: 16FsPqE9DhFTryxrUenpsGX4LJ1TPu8GqS
+* Litecoin: LLvLH6qJch7HAamLguHkwobCrxmHLhiwZw
 
+.. _Converse.js: http://conversejs.org
+.. _strophe.js: http://strophe.im/strophejs
+.. _backbone.js: http:/backbonejs.org
+.. _require.js: http:/requirejs.org
+.. _collective.xmpp.chat: http://github.com/collective/collective.xmpp.chat
+.. _Plone: http://plone.org
+.. _`XMPP/Jabber`: http://xmpp.org
+.. _MIT: http://opensource.org/licenses/mit-license.php
+.. _GPL: http://opensource.org/licenses/gpl-license.php
+.. _here: http://opkode.com/media/blog/instant-messaging-for-plone-with-javascript-and-xmpp
+.. _Screencast2: http://opkode.com/media/blog/2013/04/02/converse.js-xmpp-instant-messaging-with-javascript
 .. _`Integrated into a Plone site`: http://opkode.com/media/blog/instant-messaging-for-plone-with-javascript-and-xmpp
 .. _`In a static HTML page`: http://opkode.com/media/blog/2013/04/02/converse.js-xmpp-instant-messaging-with-javascript
+.. _`conversejs.org`: http://conversejs.org
+.. _jquery: http://jquery.com
+.. _jasmine.js: http://pivotal.github.io/jasmine
+.. _phantom.js: http://phantomjs.org
+.. _`Travis-CI`: https://travis-ci.org

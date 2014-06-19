@@ -1,36 +1,15 @@
 Changelog
 =========
 
-0.8 (Unreleased)
-----------------
-
-.. note::
-    1. Converse.js is now relicensed under the `Mozilla Public License http://www.mozilla.org/MPL/2.0/`_.
-    2. Configuration options for the chat toolbar have changed.
-       Please refer to the `relevant documentation http://devbox:8890/docs/html/index.html#visible-toolbar-buttons`_.
-
-* No initial HTML markup is now needed in the document body for converse.js to work. [jcbrand]
-* All date handling is now done with moment.js. [jcbrand]
-* Add a new toolbar button for clearing chat messages. [jcbrand]
-* Chat boxes and rooms can now be resized vertically. [jcbrand]
-* Upgraded many dependencies to their latest versions. [jcbrand]
-* Add new configuration setting `forward_messages <https://conversejs.org/docs/html/index.html#forward_messages>`_
-  Message forwarding was before default behavior but is now optional (and disabled by default). [jcbrand]
-* Newly opened chat boxes always appear immediately left of the controlbox.
-* #71 Chat boxes and rooms can be minimized. [jcbrand]
-* #130 Fixed bootstrap conflicts. [jcbrand]
-* #132 Support for `XEP-0280: Message Carbons <https://xmpp.org/extensions/xep-0280.html'>`_.
-  Configured via `enable_message_carbons <https://conversejs.org/docs/html/index.html#enable_message_carbons>`_ [hejazee]
-
-0.7.4 (2014-03-05)
+0.7.3 (2014-03-05)
 ------------------
 
 .. note:: This release contains an important security fix.
-   Thanks to Renaud Dubourguais from `Synacktiv <http://synacktiv.com>`_ for reporting the vulnerability.
+   Thanks Renaud Dubourguais from `Synacktiv http://synacktiv.com`_ for reporting the vulnerability.
 
 * #125 Bugfix: crypto dependencies loaded in wrong order [jcbrand]
 * Bugfix: action messages (i.e. /me) didn't work in OTR mode. [jcbrand]
-* Security fix: Ensure that message URLs are properly encoded. [jcbrand]
+* Security fix: Ensure that message URLs are properly decoded. [jcbrand]
 
 0.7.3 (2014-02-23)
 ------------------
@@ -146,7 +125,7 @@ versions of the 0.6 branch.
 
 * Bugfix. The remove icon wasn't appearing in the contacts roster. [jcbrand]
 * Bugfix. With auto_subscribe=True, the "Pending Contacts" header didn't disappear
-  after a new user was accepted. [jcbrand]
+after a new user was accepted. [jcbrand]
 
 0.6.1 (2013-08-28)
 ------------------
